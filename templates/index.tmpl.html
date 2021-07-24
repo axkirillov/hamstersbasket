@@ -1,22 +1,22 @@
 <html>
-  {{template "header.tmpl.html"}}
+{{template "header.tmpl.html"}}
 <body>
 <div class="jumbotron text-center">
-  <div class="container">
-    <a href="/" class="lang-logo">
-      <img src="/static/hamster.svg">
-    </a>
-    <h1>Hamsters Basket</h1>
-  </div>
+    <div class="container">
+        <a href="/" class="lang-logo">
+            <img src="/static/hamster.svg">
+        </a>
+        <h1>Hamsters Basket</h1>
+    </div>
 </div>
 <div class="container">
-  <div class="row">
     <form class="form" action="#">
-      <label class="flex-middle"><input type="checkbox"/>Milk</label>
-      <label class="flex-middle"><input type="checkbox"/>Bread</label>
-      <button type="button" class="btn">Add</button>
+        <div class="list" id="root">
+            <label class="flex-middle"><input type="checkbox"/>Milk</label>
+            <label class="flex-middle"><input type="checkbox"/>Bread</label>
+        </div>
+        <button type="button" class="btn">Add</button>
     </form>
-  </div>
 </div>
 
 </body>
