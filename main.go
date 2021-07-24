@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/axkirillov/hamstersbasket/data"
 	"github.com/gin-gonic/gin"
-	"github.com/heroku/go-getting-started/db"
 	_ "github.com/heroku/x/hmetrics/onload"
 	"log"
 	"net/http"

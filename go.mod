@@ -1,4 +1,4 @@
-module https://github.com/axkirillov/hamstersbasket
+module github.com/axkirillov/hamstersbasket
 
 go 1.16
 
