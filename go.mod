@@ -1,4 +1,4 @@
-module github.com/heroku/go-getting-started
+module https://github.com/axkirillov/hamstersbasket
 
 go 1.16
 

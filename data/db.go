@@ -9,19 +9,19 @@ import (
 	"os"
 )
 
-type DataController struct {
+type Controller struct {
 	database *sql.DB
 }
 
-func Init() *DataController {
+func Init() *Controller {
 	newDatabase, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Fatalf("Error opening database: %q", err)
 	}
-	return &DataController{database: newDatabase}
+	return &Controller{database: newDatabase}
 }
 
-func (DataController) HandleDataRequest() gin.HandlerFunc {
+func (Controller) HandleDataRequest() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		fmt.Print("code reached this point")
 		return
