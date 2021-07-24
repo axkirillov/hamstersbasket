@@ -25,7 +25,7 @@ func main() {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
 
-	dataController := db.Init()
+	dataController := data.Init()
 
 	router.POST("/data", dataController.HandleDataRequest())
 
