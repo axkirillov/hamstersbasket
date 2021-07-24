@@ -1,12 +1,12 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
+	"github.com/heroku/go-getting-started/db"
+	_ "github.com/heroku/x/hmetrics/onload"
 	"log"
 	"net/http"
 	"os"
-
-	"github.com/gin-gonic/gin"
-	_ "github.com/heroku/x/hmetrics/onload"
 )
 
 func main() {
@@ -25,8 +25,13 @@ func main() {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
 
-	err := router.Run(":" + port)
+	dataController := db.Init()
+
+	router.GET("/data", dataController.HandleDataRequest())
+
+	var err error
+	err = router.Run(":" + port)
 	if err != nil {
-		return 
+		return
 	}
 }
