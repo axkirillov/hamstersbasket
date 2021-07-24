@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
 	"os"
@@ -21,6 +22,7 @@ func Init() *DataController {
 
 func (DataController) HandleDataRequest() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		fmt.Print("code reached this point")
 		return
 	}
 }
