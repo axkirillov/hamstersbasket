@@ -25,5 +25,8 @@ func main() {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
 
-	router.Run(":" + port)
+	err := router.Run(":" + port)
+	if err != nil {
+		return 
+	}
 }

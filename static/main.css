@@ -11,16 +11,62 @@
     color: #d9ccee;
     max-width: 75%;
     margin: 1em auto 2em; }
-  .navbar + .jumbotron {
-    margin-top: -20px; }
   .jumbotron .lang-logo {
     display: block;
-    background: #B01302;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
+    /*background: #B01302;*/
+    /*border-radius: 50%;*/
+    /*overflow: hidden;*/
+    width: 200px;
+    height: 200px;
     margin: auto;
-    border: 2px solid white; }
+    /*border: 2px solid white;*/
+  }
     .jumbotron .lang-logo img {
       max-width: 100%; }
+.list {
+  font-size: 4rem;
+}
+
+input[type=checkbox]{
+  position:absolute;
+  opacity: 0;
+  z-index: -9999;
+}
+
+input[type=checkbox] + label{
+  position: relative;
+  padding-left: 24px;
+
+}
+
+input[type=checkbox] + label .indicator{
+  position: absolute;
+  left: -4px;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border-radius:3px;
+  border:1px solid #ddd;
+  cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+input[type=checkbox]:checked + label .indicator{
+  background: #a123cb;
+}
+
+input[type=checkbox]:checked + label .indicator::after{
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 16px;
+  border: 4px solid #fff;
+  border-left: none;
+  border-top: none;
+  transform: rotate(45deg);
+  left: 6px;
+}
+
+
