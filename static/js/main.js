@@ -1,3 +1,6 @@
+import {List} from "./modules/list.js";
+import {ListItem} from "./modules/listItem.js";
+
 let data = [
 //{text: string, checked: bool}
 ]
@@ -10,35 +13,21 @@ if (response.ok) {
     alert("HTTP-Error: " + response.status);
 }
 
-
-const list = document.getElementById("list");
-
-let populateListWithElement = (element) => {
-    let label = document.createElement("label");
-    label.className = "flex-middle";
-    let inputElement = document.createElement("input");
-    inputElement.type = "checkbox"
-    inputElement.checked = element.checked
-    label.appendChild(inputElement)
-    label.append(document.createTextNode(element.text))
-    list.appendChild(label);
-};
+const list = new List();
 
 data.forEach(
-    populateListWithElement
+    list.populateWithElement
 )
 
 let saveTextToElement = (event) => {
     if (event.code === "Enter") {
-        console.log(event.target.value)
+        const target = event.target;
+        const item = new ListItem(target.value)
+        list.populateWithElement(item)
+        item.save()
+        target.remove()
     }
 };
 
 const add = document.getElementById("add")
-let addTextField = () => {
-    let inputElement = document.createElement("input");
-    inputElement.type = "text"
-    list.appendChild(inputElement)
-    inputElement.addEventListener("keydown", saveTextToElement)
-};
-add.addEventListener("click", addTextField)
+add.addEventListener("click", list.appendTextField(saveTextToElement))

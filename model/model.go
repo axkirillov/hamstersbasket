@@ -1,6 +1,6 @@
 package model
 
-type Element struct {
+type ListItem struct {
 	Text string `json:"text"`
 	Checked bool `json:"checked"`
 }
