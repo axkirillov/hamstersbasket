@@ -1,17 +1,16 @@
-class Element {
-    constructor(text, checked) {
-        this.text = text;
-        this.checked = checked;
-    }
-    text
-    checked
+let data = [
+//{text: string, checked: bool}
+]
+
+let response = await fetch("/data");
+
+if (response.ok) { // if HTTP-status is 200-299
+                   // get the response body (the method explained below)
+    data = await response.json();
+} else {
+    alert("HTTP-Error: " + response.status);
 }
 
-const data = [
-    new Element("bread", false),
-    new Element("butter", true),
-    new Element("milk", false),
-]
 
 const root = document.getElementById("root");
 

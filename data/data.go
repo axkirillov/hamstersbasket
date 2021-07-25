@@ -2,10 +2,11 @@ package data
 
 import (
 	"database/sql"
-	"fmt"
+	"github.com/axkirillov/hamstersbasket/model"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 	"log"
+	"net/http"
 	"os"
 )
 
@@ -23,7 +24,11 @@ func Init() *Controller {
 
 func (Controller) HandleDataRequest() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		fmt.Print("code reached this point")
+		c.JSON(http.StatusOK, []model.Element{
+			{Text: "bread", Checked: false},
+			{Text: "butter", Checked: false},
+			{Text: "banana", Checked: true},
+		})
 		return
 	}
 }
