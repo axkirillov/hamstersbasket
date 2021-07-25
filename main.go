@@ -27,9 +27,9 @@ func main() {
 
 	dataController := data.Init()
 
-	router.GET("/data", dataController.HandleDataRequest())
+	router.GET("/data", dataController.HandleGetData())
 
-	router.POST("/data/add", dataController.HandleDataRequest())
+	router.POST("/data/add", dataController.AddElement())
 
 	var err error
 	err = router.Run(":" + port)
