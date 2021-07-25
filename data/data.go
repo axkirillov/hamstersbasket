@@ -29,13 +29,37 @@ func Init() *Controller {
 	return &Controller{database: newDatabase}
 }
 
-func (Controller) HandleGetData() gin.HandlerFunc {
+func (c Controller) HandleGetData() gin.HandlerFunc {
 	return func(context *gin.Context) {
-		context.JSON(http.StatusOK, []model.ListItem{
-			{Text: "bread", Checked: false},
-			{Text: "butter", Checked: false},
-			{Text: "banana", Checked: true},
-		})
+		rows, err := c.database.Query("SELECT text, checked FROM list")
+		if err != nil {
+			context.String(http.StatusInternalServerError,
+				fmt.Sprintf("Error reading from list: %q", err))
+			return
+		}
+
+		defer func(rows *sql.Rows) {
+			err := rows.Close()
+			if err != nil {
+				context.String(http.StatusInternalServerError,
+					fmt.Sprintf("Error reading from list: %q", err))
+			}
+		}(rows)
+
+		var items []model.ListItem
+
+		for rows.Next() {
+			var item model.ListItem
+			if err := rows.Scan(&item.Text, &item.Checked); err != nil {
+				context.String(http.StatusInternalServerError,
+					fmt.Sprintf("Error reading from list: %q", err))
+				return
+			}
+			items = append(items, item)
+		}
+
+		context.JSON(http.StatusOK, items)
+
 		return
 	}
 }

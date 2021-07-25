@@ -10,7 +10,7 @@ let response = await fetch("/data");
 if (response.ok) {
     data = await response.json();
 } else {
-    alert("HTTP-Error: " + response.status);
+    alert("HTTP-Error: " + await response.text());
 }
 
 const list = new List();
