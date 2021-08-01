@@ -1,5 +1,7 @@
 import {List} from "./modules/list.js";
 import {ListItem} from "./modules/listItem.js";
+import {Add} from "./modules/add.js";
+import {Save} from "./modules/save.js";
 
 let data = [
 //{text: string, checked: bool}
@@ -19,15 +21,17 @@ data.forEach(
     list.populateWithElement
 )
 
-let saveTextToElement = (event) => {
-    if (event.code === "Enter") {
-        const target = event.target;
-        const item = new ListItem(target.value)
-        list.populateWithElement(item)
-        item.save()
-        target.remove()
-    }
+const add = new Add(list);
+const save = new Save(list);
+
+let onClickSave = () => {
+    const item = new ListItem(textInputElement.value)
+    list.populateWithElement(item)
+    item.save()
+    textInputElement.remove()
 };
 
-const add = document.getElementById("add")
-add.addEventListener("click", list.appendTextField(saveTextToElement))
+add.afterDestroy = () => {
+    const save = new Save(onClickSave)
+    save.afterDestroy = () => new Add(onClickAdd)
+}

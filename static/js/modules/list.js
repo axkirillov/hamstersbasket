@@ -1,6 +1,6 @@
 class List {
     list;
-
+    textInputElement;
     constructor() {
         this.list = document.getElementById("list");
     }
@@ -16,13 +16,8 @@ class List {
         this.list.appendChild(label);
     }
 
-    appendTextField(onEnter) {
-        return () => {
-            let inputElement = document.createElement("input");
-            inputElement.type = "text"
-            this.list.appendChild(inputElement)
-            inputElement.addEventListener("keydown", onEnter)
-        }
+    appendChild(child) {
+        this.list.appendChild(child)
     }
 }
 

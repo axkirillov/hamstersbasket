@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/go-getting-started.iml" filepath="$PROJECT_DIR$/.idea/go-getting-started.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/hamstersbasket.iml" filepath="$PROJECT_DIR$/.idea/hamstersbasket.iml" />
     </modules>
   </component>
 </project>
