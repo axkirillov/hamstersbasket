@@ -12,7 +12,7 @@ class ListItem {
             method: 'POST',
             body: JSON.stringify({text: this.text, checked: this.checked})
         };
-        fetch('/data/add', options).then(r => console.log(r))
+        fetch('/data/add', options).then()
     }
 }
 

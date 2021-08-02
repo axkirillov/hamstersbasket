@@ -1,6 +1,5 @@
 class Add {
     element;
-    afterDestroy
 
     constructor(list) {
         this.element = document.getElementById("add")

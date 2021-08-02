@@ -1,6 +1,5 @@
 class List {
     list;
-    textInputElement;
     constructor() {
         this.list = document.getElementById("list");
     }
@@ -13,6 +12,7 @@ class List {
         inputElement.checked = element.checked
         label.appendChild(inputElement)
         label.append(document.createTextNode(element.text))
+        label.id = element.id
         this.list.appendChild(label);
     }
 

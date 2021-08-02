@@ -11,6 +11,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 type Controller struct {
@@ -24,6 +25,9 @@ func Init() *Controller {
 	}
 	_, err = newDatabase.Exec("CREATE TABLE IF NOT EXISTS list (text varchar(40), checked boolean)")
 	if err != nil {
+		return nil
+	}
+	if err != nil {
 		fmt.Printf("Error creating database table: %q", err)
 	}
 	return &Controller{database: newDatabase}
@@ -31,7 +35,7 @@ func Init() *Controller {
 
 func (c Controller) HandleGetData() gin.HandlerFunc {
 	return func(context *gin.Context) {
-		rows, err := c.database.Query("SELECT text, checked FROM list")
+		rows, err := c.database.Query("SELECT id, text, checked FROM list")
 		if err != nil {
 			context.String(http.StatusInternalServerError,
 				fmt.Sprintf("Error reading from list: %q", err))
@@ -50,7 +54,7 @@ func (c Controller) HandleGetData() gin.HandlerFunc {
 
 		for rows.Next() {
 			var item model.ListItem
-			if err := rows.Scan(&item.Text, &item.Checked); err != nil {
+			if err := rows.Scan(&item.Id, &item.Text, &item.Checked); err != nil {
 				context.String(http.StatusInternalServerError,
 					fmt.Sprintf("Error reading from list: %q", err))
 				return
@@ -88,5 +92,18 @@ func (c Controller) AddElement() gin.HandlerFunc {
 
 		context.JSON(http.StatusOK, gin.H{"status": "ok"})
 		return
+	}
+}
+
+func (c Controller) DeleteElement() gin.HandlerFunc {
+	return func(context *gin.Context) {
+		var err error
+		idString, _ := context.Params.Get("id")
+		id, err := strconv.Atoi(idString)
+		_, err = c.database.Exec(fmt.Sprintf("DELETE FROM list WHERE id=%d", id))
+		if err != nil {
+			context.JSON(http.StatusInternalServerError, gin.H{"error": err})
+			return
+		}
 	}
 }

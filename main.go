@@ -30,6 +30,7 @@ func main() {
 	router.GET("/data", dataController.HandleGetData())
 
 	router.POST("/data/add", dataController.AddElement())
+	router.DELETE("/data/delete/:id", dataController.DeleteElement())
 
 	var err error
 	err = router.Run(":" + port)

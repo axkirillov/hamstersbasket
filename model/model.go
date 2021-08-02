@@ -1,6 +1,7 @@
 package model
 
 type ListItem struct {
-	Text string `json:"text"`
-	Checked bool `json:"checked"`
+	Id      int    `json:"id"`
+	Text    string `json:"text"`
+	Checked bool   `json:"checked"`
 }
