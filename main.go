@@ -31,6 +31,7 @@ func main() {
 
 	router.POST("/data/add", dataController.AddElement())
 	router.DELETE("/data/delete/:id", dataController.DeleteElement())
+	router.PUT("/data/update/:id", dataController.UpdateElement())
 
 	var err error
 	err = router.Run(":" + port)

@@ -35,7 +35,7 @@ func Init() *Controller {
 
 func (c Controller) HandleGetData() gin.HandlerFunc {
 	return func(context *gin.Context) {
-		rows, err := c.database.Query("SELECT id, text, checked FROM list")
+		rows, err := c.database.Query("SELECT id, text, checked FROM list ORDER BY id")
 		if err != nil {
 			context.String(http.StatusInternalServerError,
 				fmt.Sprintf("Error reading from list: %q", err))
@@ -101,6 +101,19 @@ func (c Controller) DeleteElement() gin.HandlerFunc {
 		idString, _ := context.Params.Get("id")
 		id, err := strconv.Atoi(idString)
 		_, err = c.database.Exec(fmt.Sprintf("DELETE FROM list WHERE id=%d", id))
+		if err != nil {
+			context.JSON(http.StatusInternalServerError, gin.H{"error": err})
+			return
+		}
+	}
+}
+
+func (c Controller) UpdateElement() gin.HandlerFunc {
+	return func(context *gin.Context) {
+		var err error
+		idString, _ := context.Params.Get("id")
+		id, err := strconv.Atoi(idString)
+		_, err = c.database.Exec(fmt.Sprintf("UPDATE list SET checked = NOT checked WHERE id=%d", id))
 		if err != nil {
 			context.JSON(http.StatusInternalServerError, gin.H{"error": err})
 			return

@@ -30,7 +30,7 @@ class List {
         checkbox.type = "checkbox"
         checkbox.checked = element.checked
         checkbox.addEventListener('click', () => {
-            fetch('/data/update/' + element.id, {method: 'UPDATE'}).then()
+            fetch('/data/update/' + element.id, {method: 'PUT'}).then()
         })
         label.appendChild(checkbox)
         label.append(document.createTextNode(element.text))
