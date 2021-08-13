@@ -18,15 +18,19 @@
     margin: 1em auto 2em;
 }
 
-.jumbotron .lang-logo {
+.logos {
+    display: flex;
+    justify-content: center;
+}
+
+.jumbotron .logo {
     display: block;
     width: 100px;
     height: 100px;
-    margin: auto;
     padding-top: 1rem;
 }
 
-.jumbotron .lang-logo img {
+.jumbotron .logo img {
     max-width: 100%;
 }
 
