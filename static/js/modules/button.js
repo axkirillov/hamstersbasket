@@ -1,6 +1,8 @@
-class Save {
-    constructor() {
-        this.element = document.getElementById("save")
+class Button {
+    element;
+
+    constructor(elementId) {
+        this.element = document.getElementById(elementId)
     }
 
     onClick(closure) {
@@ -16,4 +18,4 @@ class Save {
     }
 }
 
-export {Save}
+export {Button}
