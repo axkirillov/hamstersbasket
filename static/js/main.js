@@ -22,10 +22,10 @@ add.onClick(
 )
 
 save.onClick(
-    () => {
+    async () => {
         const item = new ListItem(list.textInputElement.value)
+        await item.save()
         list.populateWithElement(item)
-        item.save()
         list.textInputElement.remove()
         list.textInputElement = undefined
         add.show()

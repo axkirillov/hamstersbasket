@@ -82,15 +82,30 @@ func (c Controller) AddElement() gin.HandlerFunc {
 			return
 		}
 
-		command := fmt.Sprintf("INSERT INTO list VALUES ('%s', '%t')", newItem.Text, newItem.Checked)
+		command := fmt.Sprintf("INSERT INTO list VALUES ('%s', '%t') RETURNING id", newItem.Text, newItem.Checked)
 
-		_, err = c.database.Exec(command)
+		rows, err := c.database.Query(command)
+
+		defer func(rows *sql.Rows) {
+			err := rows.Close()
+			if err != nil {
+				context.String(http.StatusInternalServerError,
+					fmt.Sprintf("Error reading from list: %q", err))
+			}
+		}(rows)
+
+		var id int
+
+		for rows.Next() {
+			err = rows.Scan(&id)
+		}
+
 		if err != nil {
 			context.JSON(http.StatusInternalServerError, gin.H{"error": err})
 			return
 		}
 
-		context.JSON(http.StatusOK, gin.H{"status": "ok"})
+		context.JSON(http.StatusOK, gin.H{"status": "ok", "id": id})
 		return
 	}
 }

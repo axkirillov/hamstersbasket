@@ -1,4 +1,5 @@
 class ListItem {
+    id;
     text;
     checked = false;
 
@@ -7,12 +8,17 @@ class ListItem {
         this.checked = checked;
     }
 
-    save() {
+    async save() {
         const options = {
             method: 'POST',
             body: JSON.stringify({text: this.text, checked: this.checked})
         };
-        fetch('/data/add', options).then()
+
+        const response = await fetch('/data/add', options)
+        if (response.ok) {
+            const data = await response.json()
+            this.id = data.id
+        }
     }
 }
 
